@@ -1,0 +1,27 @@
+services:
+  redis:
+    image: redis:latest
+    volumes:
+      - redis-data:/data
+  python:
+    build: ./python/
+    environment:
+      - PRODUCTION=0
+    depends_on: ["redis"]
+    ports:
+      - 8000:8000
+    volumes:
+      - type: bind
+        source: ./python/gis_website
+        target: /home/gis_website
+      - type: bind
+        source: ./python/osm_wrapper
+        target: /home/osm_wrapper
+      - type: bind
+        source: ./python/data-sources
+        target: /home/data-sources
+    entrypoint: "sh ./start-dev-server.sh"
+
+volumes:
+  redis-data:
+    driver: local

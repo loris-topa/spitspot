@@ -1,0 +1,30 @@
+{% extends 'osm_wrapper/page.html' %}
+{% load static %}
+{% block 'custom_head' %}
+<script src="{% static 'osm_wrapper/js/captcha.js' %}"></script>
+{% endblock %}
+{% block 'custom_css' %}
+{% endblock %}
+{% block 'body' %}
+<main class="container">
+    <h1 class="">Registrazione</h1>
+    <form method="POST" action="/register-do">
+        {% csrf_token %}
+        <input placeholder="Username" aria-label="Username" required="required" type="text" name="username">
+        <input placeholder="Password" aria-label="Password" required="required" type="password" name="password">
+        <input placeholder="Ripeti Password" aria-label="Ripeti Password" required="required" type="password" name="password_repeat">
+        <input type="hidden" name="challenge_id" id="challenge-id">
+        <input type="hidden" name="challenge_result" id="challenge-result">
+        <button id="challenge-button" onclick="challenge();" type="button">Supera il captcha</button>
+        <fieldset>
+            <!--
+            <label for="gterms">
+                <input type="checkbox" role="switch" id="terms" name="terms">
+                    I agree to the <a href="#" onclick="event.preventDefault()">Privacy Policy</a>
+            </label>
+            -->
+        </fieldset>
+        <button disabled="disabled" id="form-submit-button" type="submit">Registrati</button>
+    </form>
+</main>
+{% endblock %}

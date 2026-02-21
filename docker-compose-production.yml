@@ -1,0 +1,45 @@
+services:
+  redis:
+    restart: always
+    image: redis:latest
+    volumes:
+      - redis-data:/data
+  python:
+    build: ./python/
+    environment:
+      - PRODUCTION=0
+    depends_on: ["redis"]
+    volumes:
+      - type: bind
+        source: ./python/gis_website
+        target: /home/gis_website
+      - type: bind
+        source: ./python/osm_wrapper
+        target: /home/osm_wrapper
+      - type: bind
+        source: ./python/source.tif
+        target: /home/source.tif
+      - ./uwsgi/uwsgi.ini:/home/uwsgi.ini
+  nginx:
+    image: nginx:alpine-perl
+    depends_on: ["python"]
+    ports:
+      - 80:80
+      - 443:443
+    restart: always
+    volumes:
+      - ./nginx_conf:/etc/nginx/conf.d/
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+    command: "/bin/sh -c 'while :; do sleep 12h & wait $${!}; nginx -s reload >> /var/log/nginx/reload.log 2>&1; done & nginx -g \"daemon off;\"'"
+  certbot:
+    depends_on: ["nginx"]
+    image: certbot/certbot
+    volumes:
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+
+volumes:
+  redis-data:
+    driver: local

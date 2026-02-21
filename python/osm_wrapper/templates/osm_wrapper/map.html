@@ -1,0 +1,39 @@
+{% extends 'osm_wrapper/page.html' %}
+{% load static %}
+{% load user_filters %}
+{% block 'custom_head' %}
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+<link rel="stylesheet" href="{% static 'osm_wrapper/css/style.css' %}{{ '' | cb }}"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script src="{% static 'osm_wrapper/js/map.js' %}{{ '' | cb }}"></script>
+{% endblock %}
+{% block 'custom_css' %}
+    html, body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+    }
+    #map {
+      width: 100%;
+      height: 100%;
+    }
+    #map a {
+        padding:0;
+    }
+{% endblock %}
+{% block 'body' %}
+    <div id="map-grid">
+        <div id="map"></div>
+        <div class="container" id="scan-data-container">
+            <label for="slope">Pendenza</label>
+            <input id="slope" type="number" step="0.01" value="0.8">
+            <label for="slope">Area di contorno</label>
+            <input id="box-size" type="number" step="20" value="30" min="30">
+            <label for="count">Numero di adiacenti</label>
+            <input id="count" type="number" value="1" min="1">
+            <label for="distance">Distanza minima</label>
+            <input id="distance" type="number" value="1" min="1">
+            <label for="peak"><input id="peak" type="checkbox">Picchi e basta</label>
+        </div>
+    </div>
+{% endblock %}

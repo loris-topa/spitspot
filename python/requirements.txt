@@ -1,0 +1,6 @@
+redis
+environs
+geotiff
+setuptools==65.6.3
+Django==4.2.13
+uwsgi

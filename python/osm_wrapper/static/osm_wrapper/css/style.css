@@ -1,0 +1,35 @@
+div.leaflet-bar.leaflet-control a {
+    background-size: cover;
+}
+
+div.leaflet-bar a.leaflet-active {
+    filter: invert(.8);
+}
+
+.leaflet-initial-area-scan-icon {
+    background-image: url("/static/osm_wrapper/img/draw-area.svg");
+}
+.leaflet-line-scan-icon {
+    background-image: url("/static/osm_wrapper/img/radar.svg");
+}
+.leaflet-approach-scan-icon {
+    background-image: url("/static/osm_wrapper/img/shoes.svg");
+}
+.leaflet-sic-icon {
+    background-image: url("/static/osm_wrapper/img/bird.svg");
+}
+
+.approach-marker {
+    filter: hue-rotate(-120deg);
+}
+
+#map-grid {
+    display: grid;
+    width: 100%;
+    height: 100%;
+    grid-template-columns: 4fr 1fr;
+}
+
+#scan-data-container {
+    margin: 20px;
+}

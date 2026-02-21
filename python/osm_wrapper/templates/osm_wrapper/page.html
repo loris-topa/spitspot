@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+{% load static %}
+{% load user_filters %}
+<html>
+  <head>
+    <title>{{ title }}</title>
+    {% block 'pico' %}
+      <link rel="stylesheet" href="{% static 'osm_wrapper/css/pico.min.css' %}">
+    {% endblock %}
+    <script src="{% static 'osm_wrapper/js/main.js' %}{{ '' | cb }}"></script>
+
+    {% block 'custom_head' %}{% endblock %}
+
+    <style type="text/css">
+      {% block 'custom_css' %}{% endblock %}
+    </style>
+  </head>
+  <body>
+    {% block 'nav' %}
+    <header class="container-fluid">
+      <nav>
+        <ul>
+          <li><strong>Logo</strong></li>
+        </ul>
+        <ul>
+          {% if user|is_logged %}
+            <li><a href="/map">Mappa</a></li>
+            <li><a href="/user">{{ user }}</a></li>
+          {% else %}
+            <li><a href="/register">Registrati</a></li>
+            <li><a href="/login">Login</a></li>
+          {% endif %}
+        </ul>
+      </nav>
+    </header>
+
+    {% endblock %}
+    <main class="container" style="height:80%;">
+      {% block 'body' %}{% endblock %}
+    </main>
+    <footer></footer>
+  </body>
+</html>

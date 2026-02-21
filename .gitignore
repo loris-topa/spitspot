@@ -1,0 +1,4 @@
+.idea/
+python/data-sources/*
+python/db.sqlite3
+**/__pycache__/

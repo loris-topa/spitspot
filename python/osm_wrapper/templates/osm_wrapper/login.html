@@ -1,0 +1,23 @@
+{% extends 'osm_wrapper/page.html' %}
+{% load static %}
+{% block 'custom_head' %}
+<script src="{% static 'osm_wrapper/js/captcha.js' %}"></script>
+{% endblock %}
+{% block 'custom_css' %}
+{% endblock %}
+{% block 'body' %}
+<main class="container">
+    <h1 class="">Login</h1>
+    <form method="POST" action="/login-do">
+        {% csrf_token %}
+        <input placeholder="Username" aria-label="Username" required="" type="text" name="username">
+        <input placeholder="Password" aria-label="Password" required="" type="password" name="password">
+        <input type="hidden" name="challenge_id" id="challenge-id">
+        <input type="hidden" name="challenge_result" id="challenge-result">
+        <button id="challenge-button" onclick="challenge();" type="button">Supera il captcha</button>
+        <button disabled="disabled" id="form-submit-button" type="submit">Fai il login</button>
+    </form>
+</main>
+
+
+{% endblock %}
