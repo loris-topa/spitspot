@@ -1,5 +1,6 @@
 # SpitSpot
-
+  <img src="logo/logo.png" alt="Spitspot Logo" />
+  
 ## SETUP
 
 1) Download the zip corresponding to your area of interest from here:
