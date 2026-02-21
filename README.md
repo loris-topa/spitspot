@@ -1,4 +1,4 @@
-# SpitSpot
+<img src="logo/logo.png" alt="Spitspot Logo" />
 
 ## SETUP
 
